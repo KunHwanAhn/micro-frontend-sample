@@ -12,7 +12,9 @@ export default function App() {
       }}>
         <h1>Container App</h1>
       </div>
-      <RemoateApp />
+      <Suspense fallback="loading...">
+        <RemoateApp />
+      </Suspense>
     </>
   );
 }
