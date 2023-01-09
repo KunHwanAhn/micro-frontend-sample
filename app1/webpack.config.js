@@ -17,26 +17,26 @@ const config = {
   entry: './src/index.js',
   output: {
     path: resolve(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: 'auto',
     filename: 'js/[name].[contenthash].js',
     chunkFilename: 'js/[name].[contenthash].js',
   },
   resolve: {
     extensions: ['.js', '.jsx'],
     extensionAlias: {
-      '.js': ['.jsx', '.js',],
+      '.js': ['.jsx', '.js'],
     },
   },
   optimization: {
-    splitChunks: {
-      cacheGroups: {
-        defaultVendors: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
-        },
-      },
-    },
+    // splitChunks: {
+    //   cacheGroups: {
+    //     defaultVendors: {
+    //       test: /[\\/]node_modules[\\/]/,
+    //       name: 'vendors',
+    //       chunks: 'all',
+    //     },
+    //   },
+    // },
   },
   module: {
     rules: [
