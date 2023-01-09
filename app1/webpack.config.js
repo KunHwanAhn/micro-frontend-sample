@@ -3,8 +3,9 @@ import { fileURLToPath } from 'url';
 import { readFile } from 'fs/promises';
 
 import webpack from 'webpack';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import ExternalRemotesPlugin from 'external-remotes-plugin';
 
 const { ModuleFederationPlugin } = webpack.container;
 
@@ -60,11 +61,9 @@ const config = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: 'app2',
-      filename: 'remoteEntry.js',
-      exposes: {
-        './App': './src/App.js',
-        './App.js': './src/App.js',
+      name: 'app1',
+      remotes: {
+        app2: 'app2@[app2Url]/remoteEntry.js',
       },
       shared: {
         react: {
@@ -77,11 +76,12 @@ const config = {
         },
       },
     }),
+    new ExternalRemotesPlugin(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({ template: './public/index.html' }),
   ],
   devServer: {
-    port: 3002,
+    port: 3001,
   },
 };
 

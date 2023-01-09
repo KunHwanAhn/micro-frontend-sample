@@ -1,5 +1,5 @@
 {
-  "name": "app2",
+  "name": "app1",
   "version": "1.0.0",
   "main": "src/index.js",
   "type": "module",
@@ -7,7 +7,7 @@
   "scripts": {
     "start": "webpack serve",
     "build": "webpack --mode production",
-    "serve": "serve -p 3002 -s dist"
+    "serve": "serve -p 3001 -s dist"
   },
   "dependencies": {
     "core-js": "^3.27.1",
@@ -20,6 +20,7 @@
     "@babel/preset-react": "^7.18.6",
     "babel-loader": "^9.1.2",
     "clean-webpack-plugin": "^4.0.0",
+    "external-remotes-plugin": "^1.0.0",
     "html-webpack-plugin": "^5.5.0",
     "serve": "^14.1.2",
     "webpack": "^5.75.0",
