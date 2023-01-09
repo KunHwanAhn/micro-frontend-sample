@@ -20,9 +20,20 @@ const config = {
     chunkFilename: 'js/[name].[contenthash].js',
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json'],
+    extensions: ['.js', '.jsx'],
     extensionAlias: {
       '.js': ['.jsx', '.js',],
+    },
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        defaultVendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
     },
   },
   module: {
@@ -52,6 +63,7 @@ const config = {
       filename: 'remoteEntry.js',
       exposes: {
         './App': './src/App.js',
+        './App.js': './src/App.js',
       },
       shared: {
         react: {
@@ -67,7 +79,7 @@ const config = {
     new HtmlWebpackPlugin({ template: './public/index.html' }),
   ],
   devServer: {
-    port: 3001,
+    port: 3002,
   },
 };
 

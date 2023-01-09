@@ -7,7 +7,7 @@ export default function App() {
       textAlign: 'center',
       backgroundColor: 'cyan',
     }}>
-      <h1>App 2</h1>
+      <h1>Remote App</h1>
     </div>
   );
 }
