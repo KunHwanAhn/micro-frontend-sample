@@ -6,6 +6,10 @@ import webpack from 'webpack';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import TerserWebpackPlugin from 'terser-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+
 const { ModuleFederationPlugin } = webpack.container;
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -36,6 +40,32 @@ const config = {
     //     },
     //   },
     // },
+    minimizer: [
+      new CssMinimizerPlugin(),
+      new TerserWebpackPlugin({
+        terserOptions: {
+          compress: {
+            arrows: false,
+            collapse_vars: false,
+            comparisons: false,
+            computed_props: false,
+            hoist_props: false,
+            inline: false,
+            loops: false,
+            negate_iife: false,
+            properties: false,
+            reduce_funcs: false,
+            reduce_vars: false,
+            switches: false,
+            typeofs: false,
+          },
+          mangle: {
+            safari10: true,
+          },
+        },
+        extractComments: false,
+      }),
+    ],
   },
   module: {
     rules: [
@@ -55,6 +85,20 @@ const config = {
           },
         },
         exclude: /node_modules/,
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          { loader: MiniCssExtractPlugin.loader },
+          {
+            loader: 'css-loader',
+            options: {
+              url: false,
+            },
+          },
+          'postcss-loader',
+          'sass-loader',
+        ],
       },
     ],
   },
@@ -78,10 +122,19 @@ const config = {
       },
     }),
     new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'styles/[name].[contenthash].css',
+      chunkFilename: 'styles/[name].[contenthash].css',
+      ignoreOrder: true,
+    }),
     new HtmlWebpackPlugin({ template: './public/index.html' }),
   ],
   devServer: {
+    compress: true,
+    host: '0.0.0.0',
     port: 3002,
+    liveReload: false,
+    historyApiFallback: true,
   },
 };
 
