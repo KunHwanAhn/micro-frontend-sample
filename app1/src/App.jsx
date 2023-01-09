@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
+
+const RemoateApp = lazy(() => import('app2/App'));
 
 export default function App() {
   return (
@@ -10,6 +12,7 @@ export default function App() {
       }}>
         <h1>Container App</h1>
       </div>
+      <RemoateApp />
     </>
   );
 }
